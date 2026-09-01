@@ -91,14 +91,6 @@ citation:
 number-sections: true
 ---
 
-```{r}
-#| echo: false
-#| warning: false
-#| message: false
-
-source("R/n_of _1_code.R")
-```
-
 
 Abstract: |
 Randomized controlled trials (RCTs) remain the gold standard for establishing causal effects and informing evidence-based practice. However, population-level averages may obscure meaningful individual variation, particularly in sport and exercise medicine, where training responses, recovery patterns, and injury risk can differ substantially between athletes. The purpose of this project is to describe the value of N-of-1 methodologies as a complementary analytic framework to traditional group-based approaches and demonstrate their application using real-world athlete monitoring data. A real worl practical example using openly available Garmin running data from the Running Through project is provided. Session-level measures of heart rate, speed, and distance were analyzed. Athletes with fewer than 10 complete sessions were excluded, leaving 89 runners for analysis. Group-level mixed-effects models were used to estimate population-average relationships between training variables and heart rate. Individualized N-of-1 analyses were then performed for selected runners using ordinary least squares (OLS) and generalized least squares (GLS) models with autoregressive [AR(1)] error structures to account for serial correlation. Group-level models produced stable average estimates of heart rate responses to speed and distance but masked substantial variability between athletes. N-of-1 analyses revealed heterogeneous associations across runners, with marked differences in the magnitude and direction of relationships between heart rate, speed, distance, and session order. Individualized models identified athlete-specific patterns that were not apparent from population-level estimates, highlighting the importance of within-person analysis when evaluating training responses. N-of-1 methods provide a valuable complement to traditional group-based research by shifting the unit of inference from the population to the individual athlete. When combined with dense longitudinal monitoring data, these approaches can enhance personalized decision-making related to training, rehabilitation, and recovery. Integrating N-of-1 methodologies alongside conventional statistical models may strengthen the applicability of sport science evidence in real-world practice.
