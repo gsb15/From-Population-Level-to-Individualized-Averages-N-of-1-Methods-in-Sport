@@ -2,7 +2,7 @@
 title: "From Population-Level to Individualized Averages: N-of-1 Methods in Sport"
 
 author:
-  -- name: Garrett Fernandez
+  - name: Garrett Fernandez
     corresponding: false
     roles:
       - Investigation
@@ -40,8 +40,16 @@ author:
       - Manuscript Editing
       - Final Approval
 
+  - name: Stefan Kluzek
+    orcid: 0000-0002-0696-7541
+    corresponding: false
+    roles:
+      - Investigation
+      - Manuscript Writing
+      - Manuscript Editing
+      - Final Approval
+
   - name: Kristen Nicholson
-    orcid: 
     corresponding: false
     roles:
       - Investigation
@@ -50,6 +58,7 @@ author:
       - Manuscript Writing
       - Manuscript Editing
       - Final Approval
+
   - name: Garrett Bullock
     orcid: 0000-0003-0236-9015
     corresponding: true
@@ -63,29 +72,31 @@ author:
       - Manuscript Editing
       - Final Approval
 
-keywords: 
-  -N-of-1 design
-  -Individualized medicine
-  -Athlete monitoring
-  -Repeated measures
-  -Mixed-effects models
-  -Precision sports medicine
-  -Single-subject analysis.
+keywords:
+  - N-of-1 design
+  - Individualized medicine
+  - Athlete monitoring
+  - Repeated measures
+  - Mixed-effects models
+  - Precision sports medicine
+  - Single-subject analysis
 
 bibliography: references.bib
+
 date: last-modified
+
 citation:
-  container-title: From Population-Level to Individualized Averages: N-of-1 Methods in Sport
+  container-title: "From Population-Level to Individualized Averages: N-of-1 Methods in Sport"
+
 number-sections: true
 ---
-
 
 ```{r}
 #| echo: false
 #| warning: false
 #| message: false
 
-source("R/bayesian_cmj_simulation.R")
+source("R/n of 1 code.R")
 ```
 
 
