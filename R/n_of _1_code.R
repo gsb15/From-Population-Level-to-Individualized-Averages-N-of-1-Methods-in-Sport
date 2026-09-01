@@ -1,6 +1,12 @@
 # Open-Access GARMIN Running Through N-of-1 (HR as outcome; session-level)
 # ===================================================================
 
+install.packages('tidyverse')
+install.packages('nlme')
+install.packages('broom')
+install.packages('patchwork')
+install.packages('scales')
+
 suppressPackageStartupMessages({
   library(tidyverse)
   library(nlme)
