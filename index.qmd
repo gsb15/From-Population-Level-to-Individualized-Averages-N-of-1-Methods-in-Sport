@@ -106,10 +106,65 @@ Key-points:
 
 ---
 
-## Introduction
+# Introduction
 
+Randomized controlled trials (RCTs) are regarded as the gold standard for establishing clinical causal evidence at the population level @Bullock2023. They maximize internal validity by limiting confounding and provide generalizable estimates of average treatment effects @Lillie2011; @Punja2016. However, averages can obscure important individual differences, especially in athletes, whose physiology, training history, and injury profiles vary widely @McLaren2018; @Saw2016; @Thorpe2015; @Vieira2017. Thus, interventions shown effective on average may prove ineffective for certain individuals. This conflicts with the central aim of sport performance research: to identify individual responses and maximize benefits through targeted interventions in training, management, and recovery @Lillie2011; @McDonald2020.
 
-![Figure 7. Changes in Counter Movement Jump Rolling Average Per Individual Athlete by Team. The red dashed lines depict the smallest worthwhile change. The blue points with numerical probability represent points above and red points with probability represent below the individual athlete’s threshold of interested based on the rolling 5-test standard deviation up to but not including this most recent test during the season.](images/figure7.png){#fig-team}
+This is particularly acute in elite and sub-elite sport contexts, where practitioners make decisions for individuals rather than populations @Bullock2023; @Lillie2011. An intervention that is effective on average may not meet the needs of an athlete with a unique training load, recovery profile, travel schedule, or injury history @McLaren2018; @Saw2016; @Thorpe2015. Conversely, strategies dismissed in group analyses may benefit specific individuals @Lillie2011; @Punja2016; @Vieira2017. To illustrate this issue, we later provide a practical demonstration using Garmin runner data, showing how group averages of heart rate responses to speed and distance can mask divergent physiological patterns across runners @Bullock2024.
+
+One important characteristic of sport science and medicine data is its high density and presence of repeated measures over time, which provides potential advantages for more elaborate individual analyses and has encouraged interest in idiographic approaches such as N-of-1 designs, also referred to as single-subject analyses @Lillie2011; @McDonald2020. N-of-1 designs are characterized by repeated outcome measurements within a single unit, structured to allow formal statistical inference about within-individual effects. This moves beyond simply describing observations; N-of-1 designs use systematic data collection and analytic frameworks to distinguish signal from noise and estimate the causal or associative impact of exposures on outcomes.
+
+N-of-1 studies, whether structured as trials, adaptive experiments, or observational time series, focus on the single athlete as the unit of analysis @Senarathne2020; @Vieira2017. Rather than asking "what works on average for the group?", N-of-1 methods address the question "what works for this athlete?" @Lillie2011; @Punja2016. In sport, the relevance is obvious: fatigue, recovery, and injury risk often evolve idiosyncratically within an athlete and across a season @McLaren2018; @Saw2016; @Thorpe2015. By focusing on within-athlete variation, N-of-1 designs can yield individualized insights that directly inform sport-specific decisions @McDonald2020; @Vieira2017.
+
+It is important to recognize that N-of-1 methods should not be positioned as a replacement for traditional group designs, but rather as offering a different and complementary perspective @Bullock2023; @Lillie2011. Group models remain essential for establishing generalizable effects, informing policy, and identifying broad risk factors @McLaren2018; @Punja2016. Modern extensions of group modeling, including hierarchical mixed-effects models and variance decomposition, can quantify heterogeneity of response across participants @McDonald2020; @Vieira2017. Yet these approaches still operate at the level of the sample, estimating distributions rather than effects within a single athlete @Lillie2011; @Senarathne2020. N-of-1 designs complement these approaches by prioritizing dense, repeated measures within the individual, shifting the inferential lens from the group to the person @McDonald2020; @Vieira2017.
+
+For example, individual differences in heart rate-speed relationships mean that group-level mixed-effects predictions may not align with within-athlete trajectories, leading to inaccurate predictions when population averages are applied to individuals.
+
+This Viewpoint aims to demonstrate, through a data-driven example of a runner's individualized and heterogeneous heart rate responses to speed and distance, how N-of-1 designs can be integrated with traditional group models to strengthen the evidence base. All data and code are openly available to ensure transparency and support future adaptation:
+
+<https://github.com/Gcfernan/N-of-1-Methods-in-Sport-Viewpoint-Garmin-Running-Through-Data-.git>
+
+# Methods and Analysis
+
+Early applications of N-of-1 designs often relied on simple visual inspection of outcome trajectories, such as run charts or before-after (A|B) plots @Lillie2011; @Punja2016. While intuitive, these tools introduced substantial subjectivity and left results vulnerable to bias @McDonald2020. Contemporary N-of-1 research emphasizes statistical modeling to deliver more rigorous, reproducible analyses of individual-level time-series data @Senarathne2020; @Vieira2017.
+
+Several methodological frameworks have emerged, each offering distinct strengths and limitations @McDonald2020; @Vieira2017. Dynamic regression is particularly suited to sport, as it can incorporate time-varying predictors, lagged variables and autocorrelation, handle irregular series, and model both continuous and categorical exposures @Vieira2017.
+
+This framework uses regression models that incorporate time-varying predictors, lagged variables, and autocorrelation structures to account for the dynamic nature of repeated measures @McDonald2020; @Senarathne2020. These models are flexible, able to accommodate irregular time series, and can handle both continuous and categorical exposures. They are especially suited to sport contexts, where repeated load and recovery cycles can be systematically tracked across sessions @McLaren2018; @Saw2016; @Thorpe2015. Simulation studies show that they can yield reliable estimates even with relatively short time series, making them a pragmatic option in applied settings @McDonald2020; @Vieira2017.
+
+Several practical considerations are pivotal when making analytic choices. Autocorrelation must be accounted for to avoid inflated error rates @McDonald2020; @Senarathne2020; @Vieira2017. Missing data, common in sport, should be addressed through imputation or robust modelling; here, complete sessions were required. Longer series improve estimate precision, though dense short-term sampling may suffice for fast-changing processes such as lactate or heart rate recovery @McDonald2020; @Punja2016.
+
+Here, we minimized missingness by requiring complete sessions per runner. The length of the time series is also critical. Although modern methods can operate on relatively short datasets, longer series improve stability and precision of estimates @Lillie2011; @Vieira2017. For fast-changing processes such as lactate response to exercise and heart rate recovery, dense short-term sampling may be sufficient, whereas slower processes require longer observation windows.
+
+Finally, visualization remains valuable, not as a substitute for modeling, but as a complementary tool for interpreting results and communicating them to practitioners (see Supplementary Material for flow diagram) @Lillie2011; @McDonald2020.
+
+# Practical Example and Application
+
+To illustrate the application of N-of-1 methods, we analyzed repeated observations from recreational runners using Garmin wearable devices from the *Running Through* project @Bullock2024. This study was approved by the University of Nottingham ethics committee (FMHS 113-1120), and all procedures complied with the Declaration of Helsinki.
+
+Readers are encouraged to use the open data and code in the GitHub repository. Session-level data included heart rate, speed, and distance, reflecting internal load and external load/intensity. Runners with fewer than 10 complete sessions were excluded, reducing the sample from 418 to 89. Six runners were then selected to illustrate the N-of-1 approach and the variability often obscured by group averages.
+
+We first fit a group mixed-effects model on the session dataset (random intercept for athlete; fixed effects: centered speed, distance, observation index, gender, and age strata). Using population-level predictions from this model, we visualized predicted heart rate trajectories for the selected athletes alongside the group mean.
+
+When plotted against speed (Supplementary Material) and distance (Figure @fig-group-distance), the group model produced relatively stable average predictions, yet athletes diverged meaningfully around that mean, indicating that the group trajectory smooths over divergent load-response patterns that are central to athlete monitoring, such as sensitivity to speed or distance.
+
+![Group mixed-effects model predictions compared to observed runner trajectories by session distance. (A) Observed heart rate plotted against session distance. (B) Predicted heart rate trajectories from N-of-1 models compared to the group model.](images/figure1.png){#fig-group-distance}
+
+To capture within-athlete dynamics, we next fit N-of-1 models for each runner with heart rate as the outcome and predictors including session speed, distance, and observation index. Specifically, we compared ordinary least squares (OLS) regression to generalized least squares (GLS) models with autoregressive [AR(1)] erroresults from two models estimating how heart rate is influenced by session order, speed, distance, and previous sessions. These N-of-1 analyses highlight substantial heterogeneity in predictor associations across runners, patterns often hidden in group-level models. For example, Runner 173 showed a steep positive association between speed and heart rate, whereas Runner 3078 showed a counterintuitive negative association, diverging sharply from the group model.
+
+![Runner-specific coefficient estimates from individualized models. Forest plots of ordinary least squares (OLS) and generalized least squares with AR(1) errors (GLS-AR(1)) for each runner. Predictors shown: observation index, session speed, session distance, and lag terms; heart rate is the outcome.](images/figure2.png){#fig-runner-coefficients}
+
+# Contrasting Group-Level and N-of-1 Approaches
+
+Modern analyses including hierarchical mixed-effects models and variance decomposition allow researchers to examine heterogeneity and quantify between- and within-subject variation @McDonald2020; @Vieira201f-1 methods invert this logic by making the individual the unit of inference @Lillie2011. With dense, repeated measures, they estimate within-person associations directly, allowing researchers and practitioners to evaluate how a specific intervention, workload, or recovery strategy may relate to outcomes in a given athlete. When structured as experimental N-of-1 trials (e.g., ABA/ABAB designs), these methods can also support causal inference @McDonald2020; @Vieira2017.
+
+Their strength lies in sensitivity to fluctuations that might be obscured in pooled analyses and in producing insights that are immediately relevant to decision-making @Saw2016; @Thorpe2015. However, statistical and computational demands are often higher than for group models, dense data collection is required, and causal inference is constrained outside of randomized N-of-1 trials @Punja2016; @Senarathne2020.
+
+Generalizability is also narrow. Results apply directly to the individual studied, and while aggregation methods can extend insights to broader populations, these approaches remain underused in sport science @Lillie2011; @Punja2016.
+
+# Conclusion
+
+N-of-1 analyses revealed marked heterogeneity in how athletes respond to training variables such as speed, distance, and session order. While group models provided useful population-level estimates, they often masked important individual differences. By producing athlete-specific insights, N-of-1 methods offer a valuable complement to traditional approaches, supporting more personalized training, rehabilitation, and recovery decisions in sport and exercise medicine.
 
 
 
